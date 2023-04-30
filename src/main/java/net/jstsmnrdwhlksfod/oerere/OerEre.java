@@ -1,6 +1,8 @@
 package net.jstsmnrdwhlksfod.oerere;
 
 import com.mojang.logging.LogUtils;
+import net.jstsmnrdwhlksfod.oerere.item.ModCreativeModeTabs;
+import net.jstsmnrdwhlksfod.oerere.item.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -36,6 +38,8 @@ public class OerEre {
     public OerEre() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        ModItems.register(modEventBus);
+
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
@@ -51,7 +55,10 @@ public class OerEre {
     }
 
     private void addCreative(CreativeModeTabEvent.BuildContents event) {
-
+        if (event.getTab() == ModCreativeModeTabs.TEST_TAB) {
+            event.accept(ModItems.TEST_ITEM);
+            event.accept(ModItems.RAW_TEST_ITEM);
+        }
     }
 
 
